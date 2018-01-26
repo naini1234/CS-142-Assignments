@@ -1,34 +1,38 @@
 #include<iostream>
 using namespace std;
 
-class Node
+class Node /*contains data and a pointer which points to the 
+            *next element in the list*/
 {
 	public:
 	    int data;
 	    Node*next;
 	
-	    Node()
+	    Node() //constructor => initialises the values//
 	    {
 		    data=0;
 		    next=NULL;
 	    }
 };
 
-class CLinkedList
+class CLinkedList /*contains a variable, a head and a tail pointer which 
+                   *point to the first and last element in the list respectively*/
 {
 	public:
-	    int c;
+	    int c; //counter => used to count the no. of elements in the list//
 	    Node*head;
 	    Node*tail;
 	
-	    CLinkedList()
+	    CLinkedList() //constructor//
 	    {
 		    head=NULL;
 		    tail=NULL;
 		    c=0;
 	    }
 	
-	    void insert(int data);
+	/*calling the member functions*/
+	    
+		void insert(int data);
 	    void insertAt(int pos,int data);
 	    void del();
 	    void deleteAt(int pos);
@@ -36,40 +40,43 @@ class CLinkedList
 	    void display();
 };
 
-void CLinkedList :: insert(int data)
+void CLinkedList :: insert(int data) /*inserts a node at the end of the circular 
+                                      *linked list*/
 {
-	Node*temp=new Node;
-	temp->data=data;
+	Node*temp=new Node; //creates a new node//
+	temp->data=data; //to store data in the node//
 	
-	if(head==NULL)
+	if(head==NULL) //if the linked list is empty//
 	{
 		head=temp;
 		tail=temp;
 	}
 	
-	else
+	else //if the linked list is non-empty//
 	{
 		temp->next=head;
 		tail->next=temp;
 		tail=temp;
 	}
 	
-	c++;
+	c++; //increases the no. of elements by 1 as a new node has been inserted//
 }
 
-void CLinkedList :: insertAt(int pos,int data)
+void CLinkedList :: insertAt(int pos,int data) /*inserts a new node at any position 
+                                                *in the linked list*/
 {
-	if(pos>c)
+	if(pos>c) /*no node can be inserted as the position entered is more
+	           *than the no. of elements in the linked list itself*/
 	{
-		
+		cout<<"Not that many elements in the list dude!\n";
 	}
 	
-	else if(pos==c)
+	else if(pos==c) //to insert the node at the end of the list//
 	{
-		insert(data);
+		insert(data); //calling the insert function in the insertAt function//
 	}
 	
-	else if(pos==1)
+	else if(pos==1) //to insert at the first position//
 	{
 		Node*temp=new Node;
 		temp->data=data;
@@ -79,7 +86,7 @@ void CLinkedList :: insertAt(int pos,int data)
 		c++;
 	}
 	
-	else
+	else //to insert at any position between the first and the last position//
 	{
 		Node*temp=new Node;
 		temp->data=data;
@@ -96,9 +103,9 @@ void CLinkedList :: insertAt(int pos,int data)
 	}
 }
 
-void CLinkedList :: del()
+void CLinkedList :: del() //deletes an element at the end of the list//
 {
-	Node*p=head;
+	Node*p=head; //a pointer to temporarily store head//
 	Node*q;
 	
 	for(int i=1;i<c;i++)
@@ -108,13 +115,19 @@ void CLinkedList :: del()
 	
 	q=p->next;
 	p->next=head;
-	delete q;
-	c--;
+	delete q; //deletes the node q//
+	c--; //as one node is now deleted, the no. of elements decreases by 1//
 }
 
-void CLinkedList :: deleteAt(int pos)
+void CLinkedList :: deleteAt(int pos) //deletes at any position of the linked list//
 {
-	if(pos==c)
+	if(pos>c) /*no node can be deleted as the position entered is more
+	           *than the no. of elements in the linked list itself*/
+	{
+		cout<<"Not that many elements in the list dude!\n";
+	}
+	
+	else if(pos==c)
 	{
 		del();
 	}
@@ -145,12 +158,12 @@ void CLinkedList :: deleteAt(int pos)
 	}
 }
 
-int CLinkedList :: countItems()
+int CLinkedList :: countItems() //counts the no. of elements in the linked list//
 {
-	return c;
+	return c; //returns the value of c//
 }
 
-void CLinkedList :: display()
+void CLinkedList :: display() //displays the elements of the list//
 {
 	Node*p=head;
 	
