@@ -1,14 +1,15 @@
 #include<iostream>
 using namespace std;
 
-class Node
+class Node /*contains data and pointers which point to the 
+            *next and previous element in the list*/
 {
     public:
         Node*next;
         Node*prev;
         int data;
 
-        Node()
+        Node() //constructor => initialises the values//
         {
             data=0;
             next=NULL;
@@ -16,21 +17,24 @@ class Node
         }
 };
 
-class DLinkedList
+class DLinkedList /*contains a variable, a head and a tail pointer which 
+                   *point to the first and last element in the list respectively*/
 {
     public:
         Node*head;
         Node*tail;
-        int c;
+        int c; //counter => used to count the no. of elements in the list//
 
-        DLinkedList()
+        DLinkedList() //constructor//
         {
             head=NULL;
             tail=NULL;
             c=0;
         }
 
-        void insert(int data);
+	/*calling the member functions*/
+    
+	    void insert(int data);
         void insertAt(int pos,int data);
         void del();
         void deleteAt(int pos);
@@ -38,20 +42,21 @@ class DLinkedList
         void display();
 };
 
-void DLinkedList :: insert(int data)
+void DLinkedList :: insert(int data) /*inserts a node at the end of the doubly 
+                                      *linked list*/
 {
-    Node*temp=new Node;
-    temp->data=data;
+    Node*temp=new Node; //creates a new node//
+    temp->data=data; //to store data in the node//
     temp->next=NULL;
 
-    if(head==NULL)
+    if(head==NULL) //if the linked list is empty//
     {
         temp->prev=NULL;
         head=temp;
         tail=temp;
     }
 
-    else
+    else //if the linked list is non-empty//
     {
         Node*p=head;
       
@@ -63,17 +68,24 @@ void DLinkedList :: insert(int data)
         p->next=temp;
         temp->prev=p;
     }
-    c++;
+    c++; //increases the no. of elements by 1 as a new node has been inserted//
 }
 
-void DLinkedList :: insertAt(int pos,int data)
+void DLinkedList :: insertAt(int pos,int data) /*inserts a new node at any position 
+                                                *in the linked list*/
 {
-    if(pos==c)
+	if(pos>c) /*no node can be inserted as the position entered is more
+	           *than the no. of elements in the linked list itself*/
+	{
+		cout<<"Not that many elements in the list dude!\n";
+	}
+    
+	else if(pos==c) //to insert the node at the end of the list//
     {
-        insert(data);
+        insert(data); //calling the insert function in the insertAt function//
     }
 
-    else if(pos==1)
+    else if(pos==1) //to insert at the first position//
     {
     	Node*temp=new Node;
     	temp->data=data;
@@ -83,7 +95,7 @@ void DLinkedList :: insertAt(int pos,int data)
         c++;
     }
     
-    else
+    else //to insert at any position between the first and the last position//
     {
     	Node*temp=new Node;
     	temp->data=data;
@@ -101,20 +113,26 @@ void DLinkedList :: insertAt(int pos,int data)
 	}
 }
 
-void DLinkedList :: del()
+void DLinkedList :: del() //deletes an element at the end of the list//
 {
-	Node*p=tail;
+	Node*p=tail; //a pointer to temporarily store tail//
 	tail=tail->prev;
 	tail->next=NULL;
-	delete p;
-	c--;
+	delete p; //deletes the node p//
+	c--; //as one node is now deleted, the no. of elements decreases by 1//
 }
 
-void DLinkedList :: deleteAt(int pos)
+void DLinkedList :: deleteAt(int pos) //deletes at any position of the linked list//
 {
 	Node*p=head;
 	
-	if(pos==1)
+	if(pos>c) /*no node can be deleted as the position entered is more
+	           *than the no. of elements in the linked list itself*/
+	{
+		cout<<"Not that many elements in the list dude!\n";
+	}
+	
+	else if(pos==1)
 	{
 		Node*p=head;
 		head=p->next;
@@ -141,12 +159,14 @@ void DLinkedList :: deleteAt(int pos)
 	}
 }
 
-int DLinkedList :: countItems()
+int DLinkedList :: countItems() /*no node can be deleted as the position entered is 
+                                 *more than the no. of elements in the linked list 
+								 *itself*/
 {
-	return c;
+	return c; //returns the value of c//
 }
 
-void DLinkedList :: display()
+void DLinkedList :: display() //displays the elements of the list//
 {
 	Node*p=head;
 	
